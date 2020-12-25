@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SomeApplication.Business.QueryObjects\SomeApplication.Business.QueryObjects.csproj" />
+    <ProjectReference Include="..\SomeApplication.Business\SomeApplication.Business.csproj" />
+    <ProjectReference Include="..\SomeApplication.Interfaces\SomeApplication.Interfaces.csproj" />
+    <ProjectReference Include="..\SomeApplication.Repository\SomeApplication.Repository.csproj" />
+    <ProjectReference Include="..\SomeApplication.Services\SomeApplication.Services.csproj" />
+  </ItemGroup>
+
+</Project>

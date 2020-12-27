@@ -21,7 +21,7 @@ namespace SomeApplication.Business.Collections
 
         public IPriceQueryObject ExcludeExpired()
         {
-            var newCollection = this.Collection.Where(x => x.DueDate > DateTimeOffset.Now);
+            var newCollection = this.Collection.Where(x => x.DueDate is null || x.DueDate > DateTimeOffset.Now);
 
             return new PriceQueryObject(newCollection);
         }
@@ -33,7 +33,7 @@ namespace SomeApplication.Business.Collections
             return new PriceQueryObject(newCollection);
         }
 
-        public IPriceQueryObject For(IProductQueryObject products)
+        public IPriceQueryObject For(IEnumerable<Product> products)
         {
             return this.For(products.Select(x => x.Id));
         }

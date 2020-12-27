@@ -21,7 +21,7 @@ namespace SomeApplication.Interfaces.DTO
             return new ProductDTO
             {
                 Code = product.Code,
-                CurrentPrice = MoneyAmountDTO.From(price.Amount),
+                CurrentPrice = MoneyAmountDTO.From(price?.Amount),
                 Description = product.Description,
                 Id = product.Id,
                 Name = product.Name

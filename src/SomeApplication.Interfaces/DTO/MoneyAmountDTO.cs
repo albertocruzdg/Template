@@ -20,7 +20,11 @@ namespace SomeApplication.Interfaces.DTO
 
         public static MoneyAmountDTO From(MoneyAmount moneyAmount)
         {
-            var value = moneyAmount ?? new MoneyAmount();
+            if (moneyAmount is null)
+            {
+                return null;
+            }
+
             return new MoneyAmountDTO
             {
                 Amount = moneyAmount.Amount,

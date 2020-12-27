@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using SomeApplication.Business.Model;
 using SomeApplication.Interfaces.DTO;
@@ -26,11 +27,12 @@ namespace SomeApplication.Services.Products
 
         public IEnumerable<ProductDTO> Search(ProductQueryParameters parameters)
         {
-            var products = parameters.Filter(this.products);
+            var products = parameters.Filter(this.products).ToList();
 
             var productPrices = this.prices
                 .For(products)
-                .ExcludeExpired();
+                .ExcludeExpired()
+                .ToList();
 
             return ProductDTOFactory.Get(products, productPrices);
         }

@@ -1,5 +1,3 @@
-using System;
-
 namespace SomeApplication.Business.Model
 {
     public class Product : Entity

@@ -1,9 +1,9 @@
 ﻿CREATE TABLE public.products
 (
     id uuid NOT NULL,
-    code character varying(100)[] NOT NULL,
+    code character varying(100) NOT NULL,
     name character varying(100) NOT NULL,
-    description character varying(5000)[],
+    description character varying(5000),
     CONSTRAINT pk_products PRIMARY KEY (id)
 );
 

@@ -16,7 +16,7 @@ namespace SomeApplication.Repository.Mappings
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("products", schema);
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id).HasName("pk_products");
 
             builder.Property(x => x.Code);
             builder.Property(x => x.Name);

@@ -12,6 +12,6 @@ namespace SomeApplication.Interfaces.QueryObjects
         
         IPriceQueryObject ExcludeExpired();
         
-        IPriceQueryObject For(IProductQueryObject products);
+        IPriceQueryObject For(IEnumerable<Product> products);
     }
 }

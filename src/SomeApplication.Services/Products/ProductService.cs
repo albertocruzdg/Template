@@ -27,7 +27,11 @@ namespace SomeApplication.Services.Products
 
         public Task<Product> GetAsync(Guid id) => this.getter.GetAsync(id);
 
-        public Task<IEnumerable<ProductDTO>> Search(ProductQueryParameters parameters) => 
-            Task.Run(() => this.getter.Search(parameters));
+        public Task<IEnumerable<ProductDTO>> Search(ProductQueryParameters parameters)
+        {
+            var result = this.getter.Search(parameters);
+
+            return Task.FromResult(result);
+        }
     }
 }

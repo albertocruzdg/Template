@@ -16,8 +16,8 @@ namespace SomeApplication.Repository.Mappings
         public void Configure(EntityTypeBuilder<SalesOrder> builder)
         {
             builder.ToTable("sales_orders", this.schema);
-            builder.HasKey(x => x.Id);
-            builder.HasMany(x => x.Detail).WithOne();
+            builder.HasKey(x => x.Id).HasName("pk_sales_orders");
+            builder.HasMany(x => x.Detail).WithOne().HasConstraintName("fk_sales_order_products_sales_order_id");
         }
     }
 }

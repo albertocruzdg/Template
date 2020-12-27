@@ -5,7 +5,7 @@ namespace SomeApplication.Commands.CommandContexts
 {
     internal sealed class ProductCommandContext : IProductCommandContext
     {
-        public ProductCommandContext(IApplicationRepository repository, PriceCommandContext priceContext)
+        public ProductCommandContext(IApplicationRepository repository, IPriceCommandContext priceContext)
         {
             Repository = repository;
             PriceContext = priceContext;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SomeApplication.Interfaces.Services;
+using SomeApplication.Services.Prices;
 using SomeApplication.Services.Products;
 
 namespace SomeApplication.Services
@@ -10,6 +11,7 @@ namespace SomeApplication.Services
         {
             services.AddScoped<ProductGetter>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IPriceService, PriceService>();
         }
     }
 }

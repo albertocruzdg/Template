@@ -1,29 +1,47 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using SomeApplication.Business.DTO;
-using SomeApplication.Business.Interfaces;
 using SomeApplication.Business.Model;
+using SomeApplication.Interfaces.CommandContexts;
 using SomeApplication.Interfaces.Commands;
-using SomeApplication.Interfaces.Repository;
+using SomeApplication.Interfaces.DTO;
 
 namespace SomeApplication.Commands.Prices
 {
-    public class ChangePriceCommand : IPriceCommand
+    public class ChangePriceCommand : ICommand<IPriceCommandContext>
     {
         private readonly Guid productId;
         private readonly MoneyAmount newPrice;
 
         public ChangePriceCommand(Guid productId, MoneyAmountDTO newPrice)
+            : this(productId, newPrice.ToMoneyAmount())
         {
-            this.productId = productId;
-            this.newPrice = newPrice.ToMoneyAmount();
         }
 
-        public async Task ExecuteAsync(IApplicationRepository repository, IPrices prices)
+        public ChangePriceCommand(Guid productId, MoneyAmount newPrice)
         {
-            var markPriceAsExpiredCommand = new MarkPriceAsExpiredCommand(this.productId);
+            this.productId = productId;
+            this.newPrice = newPrice;
+        }
 
-            await markPriceAsExpiredCommand.ExecuteAsync(repository, prices);
+        public async Task ExecuteAsync(IPriceCommandContext context)
+        {
+            var price = context
+                .Prices
+                .For(this.productId)
+                .ExcludeExpired()
+                .SingleOrDefault();
+
+            if (price.Amount == this.newPrice)
+            {
+                return;
+            }
+
+            if (price != null)
+            {
+                price.MarkAsExpired();
+                await context.Repository.UpdateAsync(price);
+            }
 
             var newPrice = new Price
             {
@@ -31,7 +49,7 @@ namespace SomeApplication.Commands.Prices
                 ProductId = this.productId
             };
 
-            await repository.CreateAsync(newPrice);
+            await context.Repository.CreateAsync(newPrice);
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using SomeApplication.Business.DTO;
-using SomeApplication.Business.Interfaces;
 using SomeApplication.Business.Model;
-using SomeApplication.Business.QueryParameters;
+using SomeApplication.Interfaces.DTO;
+using SomeApplication.Interfaces.QueryObjects;
+using SomeApplication.Interfaces.QueryParameters;
 using SomeApplication.Interfaces.Repository;
 
 namespace SomeApplication.Services.Products
@@ -13,10 +12,10 @@ namespace SomeApplication.Services.Products
     internal sealed class ProductGetter
     {
         private readonly IApplicationRepository repository;
-        private readonly IProducts products;
-        private readonly IPrices prices;
+        private readonly IProductQueryObject products;
+        private readonly IPriceQueryObject prices;
 
-        public ProductGetter(IApplicationRepository repository, IProducts products, IPrices prices)
+        public ProductGetter(IApplicationRepository repository, IProductQueryObject products, IPriceQueryObject prices)
         {
             this.repository = repository;
             this.products = products;

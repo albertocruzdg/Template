@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SomeApplication.API.Filters;
 using SomeApplication.Business.QueryObjects;
+using SomeApplication.Commands;
 using SomeApplication.Repository;
 using SomeApplication.Services;
 
@@ -28,6 +29,7 @@ namespace SomeApplication.API
             RepositoryStartup.ConfigureServices(services, this.Configuration);
             QueryObjectsStartup.ConfigureServices(services);
             ServicesStartup.ConfigureServices(services);
+            CommandsStartup.ConfigureServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

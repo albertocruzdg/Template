@@ -11,5 +11,7 @@ namespace SomeApplication.Business.Model
         public MoneyAmount Amount { get; set; }
 
         public DateTimeOffset? DueDate { get; set; }
+
+        public void MarkAsExpired() => this.DueDate = DateTimeOffset.Now;
     }
 }

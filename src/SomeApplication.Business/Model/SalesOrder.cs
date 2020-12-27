@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SomeApplication.Business.Interfaces;
 
 namespace SomeApplication.Business.Model
 {
@@ -10,15 +9,6 @@ namespace SomeApplication.Business.Model
         {
             this.Date = DateTimeOffset.Now;
             this.Detail = new List<SalesOrderProduct>();
-        }
-
-        public SalesOrder(IPrices prices)
-            : this()
-        {
-            foreach (var price in prices)
-            {
-                this.Detail.Add(new SalesOrderProduct(price));
-            }
         }
 
         public DateTimeOffset? Date { get; set; }

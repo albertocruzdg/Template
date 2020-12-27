@@ -29,8 +29,7 @@ CREATE TABLE public.sales_order_products
 (
     id uuid NOT NULL,
     price_id uuid NOT NULL,
-    amount money NOT NULL,
-    currency character varying(10) NOT NULL,
+    quantity integer NOT NULL,
     sales_order_id uuid NOT NULL,
     CONSTRAINT sales_order_products_pkey PRIMARY KEY (id),
     CONSTRAINT fk_sales_order_products_price_id FOREIGN KEY (price_id) REFERENCES public.prices (id),

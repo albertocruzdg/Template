@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SomeApplication.Business.Collections;
-using SomeApplication.Business.Interfaces;
+using SomeApplication.Interfaces.QueryObjects;
 
 namespace SomeApplication.Business.QueryObjects
 {
@@ -8,8 +8,8 @@ namespace SomeApplication.Business.QueryObjects
     {
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IPrices, PriceQueryObject>();
-            services.AddTransient<IProducts, ProductQueryObject>();
+            services.AddScoped<IPriceQueryObject, PriceQueryObject>();
+            services.AddScoped<IProductQueryObject, ProductQueryObject>();
         }
     }
 }

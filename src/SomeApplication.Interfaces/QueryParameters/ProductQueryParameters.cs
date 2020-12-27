@@ -1,7 +1,7 @@
 ﻿using System;
-using SomeApplication.Business.Interfaces;
+using SomeApplication.Interfaces.QueryObjects;
 
-namespace SomeApplication.Business.QueryParameters
+namespace SomeApplication.Interfaces.QueryParameters
 {
     public class ProductQueryParameters
     {
@@ -11,7 +11,7 @@ namespace SomeApplication.Business.QueryParameters
 
         public string Code { get; set; }
 
-        public IProducts Filter(IProducts products)
+        public IProductQueryObject Filter(IProductQueryObject products)
         {
             if (this.Id.HasValue)
             {

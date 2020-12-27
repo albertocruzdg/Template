@@ -1,7 +1,8 @@
 ﻿using System.Runtime.Serialization;
+using System.Text;
 using SomeApplication.Business.Model;
 
-namespace SomeApplication.Business.DTO
+namespace SomeApplication.Interfaces.DTO
 {
     [DataContract]
     public class MoneyAmountDTO

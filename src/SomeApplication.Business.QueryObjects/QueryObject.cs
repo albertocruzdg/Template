@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using SomeApplication.Business.Interfaces;
 using SomeApplication.Business.Model;
+using SomeApplication.Interfaces.QueryObjects;
 using SomeApplication.Interfaces.Repository;
 
 namespace SomeApplication.Business.Collections
 {
-    public abstract class QueryObject<T> : IEnumerable<T>, ICollectionWrapper<T>
+    public abstract class QueryObject<T> : IEnumerable<T>, IQueryObject<T>
         where T : Entity
     {
         public QueryObject(IApplicationRepository repository)

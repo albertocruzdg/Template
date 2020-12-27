@@ -1,28 +1,20 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using SomeApplication.Business.DTO;
-using SomeApplication.Business.Model;
-using SomeApplication.Interfaces.Repository;
+﻿using System.Threading.Tasks;
+using SomeApplication.Interfaces.CommandContexts;
+using SomeApplication.Interfaces.CommandHandlers;
+using SomeApplication.Interfaces.Commands;
 using SomeApplication.Interfaces.Services;
 
 namespace SomeApplication.Services.SalesOrders
 {
-    internal class SalesOrderService : ISalesOrderService
+    internal sealed class SalesOrderService : ISalesOrderService
     {
-        private readonly IApplicationRepository repository;
-        private readonly IUnitOfWork unitOfWork;
+        private readonly ICommandHandler<ISalesOrderCommandContext> commandHandler;
 
-        public SalesOrderService(IApplicationRepository repository, IUnitOfWork unitOfWork)
+        public SalesOrderService(ICommandHandler<ISalesOrderCommandContext> commandHandler)
         {
-            this.repository = repository;
-            this.unitOfWork = unitOfWork;
+            this.commandHandler = commandHandler;
         }
 
-        public async Task CreateSalesOrder(SalesOrderDTO salesOrderDTO)
-        {
-
-            await this.unitOfWork.SaveChangesAsync();
-        }
+        public Task HandleAsync(ICommand<ISalesOrderCommandContext> command) => this.commandHandler.HandleAsync(command);
     }
 }

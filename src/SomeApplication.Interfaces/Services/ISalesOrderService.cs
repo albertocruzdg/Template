@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
-using SomeApplication.Business.DTO;
+﻿using SomeApplication.Interfaces.CommandContexts;
 
 namespace SomeApplication.Interfaces.Services
 {
-    public interface ISalesOrderService
+    public interface ISalesOrderService : ICommandService<ISalesOrderCommandContext>
     {
-        Task CreateSalesOrder(SalesOrderDTO salesOrderDTO);
     }
 }

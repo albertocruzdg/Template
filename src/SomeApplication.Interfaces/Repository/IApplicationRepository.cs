@@ -9,8 +9,8 @@ namespace SomeApplication.Interfaces.Repository
     {
         Task CreateAsync<T>(T entity) where T : Entity;
 
-        Task UpdateAsync<T>(T entity) where T : Entity;
-
+        Task UpdateAsync<T>(T product) where T : Entity;
+     
         Task<T> GetAsync<T>(Guid id) where T : Entity;
         
         IQueryable<T> Queryable<T>() where T : Entity;

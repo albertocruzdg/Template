@@ -1,37 +1,44 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using SomeApplication.Business.Interfaces;
 using SomeApplication.Business.Model;
+using SomeApplication.Interfaces.QueryObjects;
 using SomeApplication.Interfaces.Repository;
 
 namespace SomeApplication.Business.Collections
 {
-    public class ProductQueryObject : QueryObject<Product>, IProducts
+    public class ProductQueryObject : QueryObject<Product>, IProductQueryObject
     {
         public ProductQueryObject(IApplicationRepository repository)
             : base(repository)
         {
         }
 
-        public IProducts WithId(Guid productId)
+        private ProductQueryObject(IEnumerable<Product> collection)
+            : base(collection)
         {
-            this.Collection = this.Collection.Where(x => x.Id == productId);
 
-            return this;
         }
 
-        public IProducts NameContains(string name)
+        public IProductQueryObject WithId(Guid productId)
         {
-            this.Collection = this.Collection.Where(x => x.Name.Contains(name));
+            var newCollection = this.Collection.Where(x => x.Id == productId);
 
-            return this;
+            return new ProductQueryObject(newCollection);
         }
 
-        public IProducts CodeContains(string code)
+        public IProductQueryObject NameContains(string name)
         {
-            this.Collection = this.Collection.Where(x => x.Code.Contains(code));
+            var newCollection = this.Collection.Where(x => x.Name.Contains(name));
 
-            return this;
+            return new ProductQueryObject(newCollection);
+        }
+
+        public IProductQueryObject CodeContains(string code)
+        {
+            var newCollection = this.Collection.Where(x => x.Code.Contains(code));
+
+            return new ProductQueryObject(newCollection);
         }
     }
 }

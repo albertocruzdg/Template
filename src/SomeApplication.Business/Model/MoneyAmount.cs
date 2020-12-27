@@ -28,5 +28,10 @@ namespace SomeApplication.Business.Model
             (!object.ReferenceEquals(a, null) && a.Equals(b));
 
         public static bool operator !=(MoneyAmount a, MoneyAmount b) => !(a == b);
+
+        public static MoneyAmount operator *(MoneyAmount amount, int quantity) => 
+            new MoneyAmount(amount.Amount * quantity, amount.Currency);
+
+        public static MoneyAmount operator *(int quantity, MoneyAmount amount) => amount * quantity;
     }
 }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using SomeApplication.Business.DTO;
+﻿using SomeApplication.Interfaces.CommandContexts;
 
 namespace SomeApplication.Interfaces.Services
 {
-    public interface IPriceService
+    public interface IPriceService : ICommandService<IPriceCommandContext>
     {
-        Task ChangePrice(Guid productId, MoneyAmountDTO newPrice);
     }
 }

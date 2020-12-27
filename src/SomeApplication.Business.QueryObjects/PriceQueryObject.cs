@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SomeApplication.Business.Interfaces;
 using SomeApplication.Business.Model;
+using SomeApplication.Interfaces.QueryObjects;
 using SomeApplication.Interfaces.Repository;
 
 namespace SomeApplication.Business.Collections
 {
-    public class PriceQueryObject : QueryObject<Price>, IPrices
+    public class PriceQueryObject : QueryObject<Price>, IPriceQueryObject
     {
         public PriceQueryObject(IApplicationRepository repository)
             : base(repository)
@@ -19,26 +19,26 @@ namespace SomeApplication.Business.Collections
         {
         }
 
-        public IPrices ExcludeExpired()
+        public IPriceQueryObject ExcludeExpired()
         {
             var newCollection = this.Collection.Where(x => x.DueDate > DateTimeOffset.Now);
 
             return new PriceQueryObject(newCollection);
         }
 
-        public IPrices For(IEnumerable<Guid> productIds)
+        public IPriceQueryObject For(IEnumerable<Guid> productIds)
         {
             var newCollection = this.Collection.Where(x => productIds.Contains(x.ProductId));
 
             return new PriceQueryObject(newCollection);
         }
 
-        public IPrices For(IProducts products)
+        public IPriceQueryObject For(IProductQueryObject products)
         {
             return this.For(products.Select(x => x.Id));
         }
 
-        public IPrices For(Guid productId)
+        public IPriceQueryObject For(Guid productId)
         {
             var newCollection = this.Collection.Where(x => x.ProductId == productId);
 

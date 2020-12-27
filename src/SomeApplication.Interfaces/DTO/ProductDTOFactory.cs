@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SomeApplication.Business.Interfaces;
 using SomeApplication.Business.Model;
 
-namespace SomeApplication.Business.DTO
+namespace SomeApplication.Interfaces.DTO
 {
     public static class ProductDTOFactory
     {
-        public static IEnumerable<ProductDTO> Get(IProducts products, IPrices prices)
+        public static IEnumerable<ProductDTO> Get(IEnumerable<Product> products, IEnumerable<Price> prices)
         {
             foreach (var product in products)
             {
@@ -17,7 +16,7 @@ namespace SomeApplication.Business.DTO
             }
         }
 
-        public static ProductDTO Get (Product product, Price price)
+        public static ProductDTO Get(Product product, Price price)
         {
             return new ProductDTO
             {

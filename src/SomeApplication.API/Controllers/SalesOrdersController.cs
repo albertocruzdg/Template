@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SomeApplication.Business.DTO;
+using SomeApplication.Commands.SalesOrders;
+using SomeApplication.Interfaces.DTO;
 using SomeApplication.Interfaces.Services;
 
 namespace SomeApplication.API.Controllers
@@ -12,15 +10,19 @@ namespace SomeApplication.API.Controllers
     [Route("api/[controller]")]
     public class SalesOrdersController : ControllerBase
     {
-        private readonly ISalesOrderService salesOrderService;
+        private readonly ISalesOrderService service;
 
-        public SalesOrdersController(ISalesOrderService salesOrderService)
+        public SalesOrdersController(ISalesOrderService service)
         {
-            this.salesOrderService = salesOrderService;
+            this.service = service;
         }
-        public void CreateSalesOrder(SalesOrderDTO salesOrder)
+        
+        [HttpPost("")]
+        public async Task<IActionResult> CreateSalesOrder(SalesOrderDTO salesOrder)
         {
-            this.salesOrderService.CreateSalesOrder(salesOrder);
+            await this.service.HandleAsync(new CreateSalesOrderCommand(salesOrder));
+
+            return this.Ok();
         }
     }
 }

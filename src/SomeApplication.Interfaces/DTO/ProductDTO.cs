@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace SomeApplication.Business.DTO
+namespace SomeApplication.Interfaces.DTO
 {
     [DataContract]
     public class ProductDTO

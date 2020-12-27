@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SomeApplication.Business.Commands;
 using SomeApplication.Business.DTO;
 using SomeApplication.Business.Model;
 using SomeApplication.Business.QueryParameters;
+using SomeApplication.Commands.Products;
 using SomeApplication.Interfaces.Repository;
 using SomeApplication.Interfaces.Services;
 
@@ -13,13 +13,13 @@ namespace SomeApplication.Services.Products
     internal class ProductService : IProductService
     {
         private readonly ProductGetter getter;
-        private readonly ProductCreator creator;
+        private readonly IApplicationRepository repository;
         private readonly IUnitOfWork unitOfWork;
 
-        public ProductService(ProductGetter getter, ProductCreator creator, IUnitOfWork unitOfWork)
+        public ProductService(ProductGetter getter, IApplicationRepository repository, IUnitOfWork unitOfWork)
         {
             this.getter = getter;
-            this.creator = creator;
+            this.repository = repository;
             this.unitOfWork = unitOfWork;
         }
 
@@ -29,7 +29,7 @@ namespace SomeApplication.Services.Products
         {
             var command = new CreateNewProductCommand(productDTO);
 
-            await this.creator.HandleAsync(command);
+            await command.HandleAsync(repository);
 
             await this.unitOfWork.SaveChangesAsync();
         }

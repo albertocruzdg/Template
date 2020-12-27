@@ -25,6 +25,14 @@ namespace SomeApplication.Repository
         public IQueryable<T> Queryable<T>()
             where T : Entity => this.Set<T>().AsQueryable();
 
+        public Task UpdateAsync<T>(T entity) 
+            where T : Entity
+        {
+            this.Set<T>().Update(entity);
+
+            return Task.CompletedTask;
+        }
+
         private DbSet<T> Set<T>() 
             where T : Entity => this.context.Set<T>();
     }

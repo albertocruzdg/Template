@@ -6,6 +6,8 @@ namespace SomeApplication.Business.Interfaces
 {
     public interface IPrices : ICollectionWrapper<Price>
     {
+        IPrices For(Guid productId);
+
         IPrices For(IEnumerable<Guid> productIds);
         
         IPrices ExcludeExpired();

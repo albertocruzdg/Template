@@ -14,6 +14,11 @@ namespace SomeApplication.Business.Collections
             this.Collection = repository.Queryable<T>();
         }
 
+        public QueryObject(IEnumerable<T> collection)
+        {
+            this.Collection = collection;
+        }
+
         public IEnumerable<T> Collection { get; protected set; }
 
         public IEnumerator<T> GetEnumerator() => this.Collection.GetEnumerator();

@@ -14,23 +14,35 @@ namespace SomeApplication.Business.Collections
         {
         }
 
+        private PriceQueryObject(IEnumerable<Price> collection)
+            : base(collection)
+        {
+        }
+
         public IPrices ExcludeExpired()
         {
-            this.Collection = this.Collection.Where(x => x.DueDate > DateTimeOffset.Now);
+            var newCollection = this.Collection.Where(x => x.DueDate > DateTimeOffset.Now);
 
-            return this;
+            return new PriceQueryObject(newCollection);
         }
 
         public IPrices For(IEnumerable<Guid> productIds)
         {
-            this.Collection = this.Collection.Where(x => productIds.Contains(x.ProductId));
+            var newCollection = this.Collection.Where(x => productIds.Contains(x.ProductId));
 
-            return this;
+            return new PriceQueryObject(newCollection);
         }
 
         public IPrices For(IProducts products)
         {
             return this.For(products.Select(x => x.Id));
+        }
+
+        public IPrices For(Guid productId)
+        {
+            var newCollection = this.Collection.Where(x => x.ProductId == productId);
+
+            return new PriceQueryObject(newCollection);
         }
     }
 }
